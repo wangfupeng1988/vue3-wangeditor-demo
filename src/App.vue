@@ -1,26 +1,31 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <p>
+    wangEditor for vue3
+    <button @click="toggle">显示/隐藏</button>
+  </p>
+  <my-editor v-if="show"></my-editor>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import MyEditor from './components/MyEditor.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    MyEditor,
+  },
+  data() {
+    return {
+      show: true
+    }
+  },
+  methods: {
+    toggle() {
+      this.show = !this.show
+    }
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>
