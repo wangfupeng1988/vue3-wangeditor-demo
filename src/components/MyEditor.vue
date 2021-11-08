@@ -1,7 +1,28 @@
 <script setup>
+// import { h } from 'snabbdom'
 import { computed, onUnmounted, ref } from 'vue'
+// import { Boot, i18nChangeLanguage } from '@wangeditor/editor'
 import { Editor, Toolbar, getEditor, removeEditor } from '@wangeditor/editor-for-vue'
 import cloneDeep from 'lodash.clonedeep'
+
+
+
+// // 测试：多语言
+// i18nChangeLanguage('en')
+
+// // 测试：renderElem
+// function renderElemFn(elem, children) {
+//     const vnode = h('div', {}, children) // type: 'paragraph' 节点，即渲染为 <p> 标签
+//     return vnode
+// }
+// const renderElemConf = {
+//     type: 'paragraph', // 节点 type ，重要！！！
+//     renderElem: fn,
+// }
+// Boot.registerRenderElem(renderElemConf)
+
+
+
 
 // 编辑器 id ，全局唯一且不变！！！
 const editorId = 'wangeEditor-1'
