@@ -1,7 +1,8 @@
 <script setup>
 // import { h } from 'snabbdom'
 import { computed, onUnmounted, ref } from 'vue'
-// import { Boot, i18nChangeLanguage } from '@wangeditor/editor'
+// import { IButtonMenu } from '@wangeditor/core'
+// import { Boot } from '@wangeditor/editor'
 import { Editor, Toolbar, getEditor, removeEditor } from '@wangeditor/editor-for-vue'
 import cloneDeep from 'lodash.clonedeep'
 
@@ -10,17 +11,54 @@ import cloneDeep from 'lodash.clonedeep'
 // // 测试：多语言
 // i18nChangeLanguage('en')
 
-// // 测试：renderElem
+// // 测试：注册 renderElem
 // function renderElemFn(elem, children) {
 //     const vnode = h('div', {}, children) // type: 'paragraph' 节点，即渲染为 <p> 标签
 //     return vnode
 // }
 // const renderElemConf = {
 //     type: 'paragraph', // 节点 type ，重要！！！
-//     renderElem: fn,
+//     renderElem: renderElemFn,
 // }
 // Boot.registerRenderElem(renderElemConf)
 
+// // 测试：注册插件
+// function withMention(editor) {
+//     const { insertText } = editor
+//     const newEditor = editor
+
+//     newEditor.insertText = (t) => {
+//         if (t === '@') {
+//             console.log('要显示下拉列表，位置', newEditor.getSelectionPosition())
+//             return
+//         }
+//         insertText(t)
+//     }
+//     return newEditor
+// }
+// Boot.registerPlugin(withMention)
+
+// // 测试：注册 button menu
+// class MyButtonMenu {
+//     constructor() {
+//         this.title = 'menu1',
+//         this.tag = 'button'
+//     }
+//     getValue() { return '' }
+//     isActive() { return false }
+//     isDisabled() { return false }
+//     exec(editor) {
+//         console.log(editor)
+//         alert('menu1 exec')
+//     }
+// }
+// const menuConf = {
+//   key: 'my-menu-1', // menu key ，唯一。注册之后，需通过 toolbarKeys 配置到工具栏
+//   factory() {
+//     return new MyButtonMenu()
+//   },
+// }
+// Boot.registerMenu(menuConf)
 
 
 
@@ -62,15 +100,16 @@ const editorConfig = {
     }
 }
 
-// // 工具栏配置
-// const toolbarConfig = {
-//     toolbarKeys: [],
-//     excludeKeys: [],
-// }
+// 工具栏配置
+const toolbarConfig = {
+    // toolbarKeys: ['headerSelect', 'bold', 'my-menu-1'],
+    // excludeKeys: [],
+}
 
 // 编辑器回调函数
 const handleCreated = (editor) => {
     console.log("created", editor);
+    // window.editor = editor // 临时测试使用，用完删除
 }
 const handleChange = (editor) => {
     console.log("change:", editor.children);

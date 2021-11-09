@@ -1617,24 +1617,24 @@
   resolved "https://registry.npm.taobao.org/@vue/web-component-wrapper/download/@vue/web-component-wrapper-1.3.0.tgz#b6b40a7625429d2bd7c2281ddba601ed05dc7f1a"
   integrity sha1-trQKdiVCnSvXwigd26YB7QXcfxo=
 
-"@wangeditor/basic-modules@^0.7.6":
-  version "0.7.6"
-  resolved "https://registry.yarnpkg.com/@wangeditor/basic-modules/-/basic-modules-0.7.6.tgz#d138aeb12428296703429044bb6a0a732debf420"
-  integrity sha512-XZGLPJDQrjNTVHoBgQOj0w9C8ZUXGIGNrWha7qExTqph8DCWCn6kS9c+TR57aCrF35f7u5lbn3juxbZZqyei2Q==
+"@wangeditor/basic-modules@^0.7.7":
+  version "0.7.7"
+  resolved "https://registry.yarnpkg.com/@wangeditor/basic-modules/-/basic-modules-0.7.7.tgz#ca2d2f9bd302155bc9c1da710bcc60753261fac3"
+  integrity sha512-s/3skknYzY+Fcl/MdKAovaTykyyq4Ep8pcZczcU4UHetfzdil8tUTHJwuVbIIL2w1XMc3Sxv7dQ8P2o0Jt5Clw==
   dependencies:
     is-url "^1.2.4"
 
-"@wangeditor/code-highlight@^0.7.4":
-  version "0.7.4"
-  resolved "https://registry.yarnpkg.com/@wangeditor/code-highlight/-/code-highlight-0.7.4.tgz#ae087c60bf592f8d0acd5e6bc33dd1e18bf7d51c"
-  integrity sha512-n6rLAxGdPRANbFHYK47aGvzXE3ygweNvrfnyvApDqFWZ+tQ4VZARCtx9aYp5MNxI6vSkk4CU1r8l4Js83HXxeQ==
+"@wangeditor/code-highlight@^0.7.5":
+  version "0.7.5"
+  resolved "https://registry.yarnpkg.com/@wangeditor/code-highlight/-/code-highlight-0.7.5.tgz#b45a119a2173316f3749a683678b136a9099c0af"
+  integrity sha512-+MjF1b5ab8S36IMBbVQ6vpt8EbrifUKhb/i2hf5E3YnTK/8Yaama9QyHMXW5VHK4guysMP92+HlBcApCERgGPQ==
   dependencies:
     prismjs "^1.23.0"
 
-"@wangeditor/core@^0.10.1":
-  version "0.10.1"
-  resolved "https://registry.yarnpkg.com/@wangeditor/core/-/core-0.10.1.tgz#11c03641fc9f2cd382e481f1bc83bdda2838b374"
-  integrity sha512-XGb6NbcSDiKJIxCC5LJAFxKPBhlFkkZgILcDaFuqYGfZ/rKK1bEo2c+pKrTHsnGJ9bqNrrbNOLFv7FKIABlEdA==
+"@wangeditor/core@^0.10.2":
+  version "0.10.2"
+  resolved "https://registry.yarnpkg.com/@wangeditor/core/-/core-0.10.2.tgz#128d50fba3f8ca0f27c985c623dd0de3ac5739b0"
+  integrity sha512-dZDUP2/NvYI86LBrEAzeVczgPFYCazwyCgWBZK/7MtWHCCw44jS7GKpo5IudNVuIZuWibpvqLlxpOonU49LwxA==
   dependencies:
     event-emitter "^0.3.5"
     html-void-elements "^2.0.0"
@@ -1643,27 +1643,27 @@
     slate-history "^0.62.0"
     xml-formatter "^2.4.0"
 
-"@wangeditor/editor-for-vue@^5.1.5":
-  version "5.1.5"
-  resolved "https://registry.yarnpkg.com/@wangeditor/editor-for-vue/-/editor-for-vue-5.1.5.tgz#c5784fae94061b270d9c89fd1bfa25a567d19657"
-  integrity sha512-0Zv6bDkde3gLh0NC7P4o2VYVaijdDr/QzMnTZgYwk5M/+x30jpfHQPguZlBI/C464SyoJsUQwB68XddQkCnNkQ==
+"@wangeditor/editor-for-vue@^5.1.6":
+  version "5.1.6"
+  resolved "https://registry.yarnpkg.com/@wangeditor/editor-for-vue/-/editor-for-vue-5.1.6.tgz#0f6e89cf7fa87e0cff78a12cfd7670bfe6093d54"
+  integrity sha512-mttl/L/w7nEZwtokDDvP9pTtC8OYF6zM11zdnluw4/r170h4abjGLMjJ6caQBqZ0hsgwe4EWadvgRSTSTzfHyQ==
   dependencies:
     eventemitter3 "^4.0.7"
 
-"@wangeditor/editor@^0.10.3":
-  version "0.10.3"
-  resolved "https://registry.yarnpkg.com/@wangeditor/editor/-/editor-0.10.3.tgz#73da901688e6067cd55f115bd7fb43717a2d41fb"
-  integrity sha512-ByE669FCkcE/7unRTxozg2KxtwWYY+liFjYiL0iLu3BoibmzpmgFm/cmq4s4IpXUddFjmdCPVGgw3GHeG7psZQ==
+"@wangeditor/editor@^0.10.4":
+  version "0.10.4"
+  resolved "https://registry.yarnpkg.com/@wangeditor/editor/-/editor-0.10.4.tgz#90150cb8dcb16d80f7f335313d8a273643b796c2"
+  integrity sha512-j+FP6uwpMhGdYx3T3ET+XjZxuzmYmJEmUSgEavi4c8AQtqSqRTOdBU2QzbM/dUD12FjYhd/Ld26AnSgLEkZ+hA==
   dependencies:
     "@uppy/core" "^2.1.1"
     "@uppy/xhr-upload" "^2.0.3"
-    "@wangeditor/basic-modules" "^0.7.6"
-    "@wangeditor/code-highlight" "^0.7.4"
-    "@wangeditor/core" "^0.10.1"
-    "@wangeditor/list-module" "^0.7.6"
-    "@wangeditor/table-module" "^0.8.3"
-    "@wangeditor/upload-image-module" "^0.7.5"
-    "@wangeditor/video-module" "^0.7.3"
+    "@wangeditor/basic-modules" "^0.7.7"
+    "@wangeditor/code-highlight" "^0.7.5"
+    "@wangeditor/core" "^0.10.2"
+    "@wangeditor/list-module" "^0.7.7"
+    "@wangeditor/table-module" "^0.8.4"
+    "@wangeditor/upload-image-module" "^0.7.6"
+    "@wangeditor/video-module" "^0.7.4"
     dom7 "^3.0.0"
     is-hotkey "^0.2.0"
     lodash.camelcase "^4.3.0"
@@ -1676,25 +1676,25 @@
     slate "^0.63.0"
     snabbdom "^3.0.1"
 
-"@wangeditor/list-module@^0.7.6":
+"@wangeditor/list-module@^0.7.7":
+  version "0.7.7"
+  resolved "https://registry.yarnpkg.com/@wangeditor/list-module/-/list-module-0.7.7.tgz#f6146a1543c4ee93742e9b61dc0cb3f47c355f7d"
+  integrity sha512-lZdtg72A99m/icXfMk4vyDXMAUXRnLx4/N0SVJwVLrHBdztM1XmBw48l/XCChwxkpRC0BxbsSNE4H5iHvupWqQ==
+
+"@wangeditor/table-module@^0.8.4":
+  version "0.8.4"
+  resolved "https://registry.yarnpkg.com/@wangeditor/table-module/-/table-module-0.8.4.tgz#44cb5d07cbfab3ec502fbf9f1d0443a02eba5e65"
+  integrity sha512-kuQ1lRz1WFyBmrSR5zOcq8k4AXvINtKHkxwapR3uRE7lqbXpiGGaHkii7PkFyiVeXjXWzVGS1iWBIHNM8Anc+Q==
+
+"@wangeditor/upload-image-module@^0.7.6":
   version "0.7.6"
-  resolved "https://registry.yarnpkg.com/@wangeditor/list-module/-/list-module-0.7.6.tgz#67db3104140588f24544c4aa8bd693aa17d49361"
-  integrity sha512-M0trlCWbRI5bxjXBpKv2csik9gjsmrTurL21Iz70hwYvhjr/gyXLw7enVC/YHNKwkd5McVldQWiewx9iKQtiEA==
+  resolved "https://registry.yarnpkg.com/@wangeditor/upload-image-module/-/upload-image-module-0.7.6.tgz#26f040f7c6454758a3b418ab827e301dc9cf9345"
+  integrity sha512-Xby68KhN7jOPMYs+AQ0E2SnDzIRX8ew8yqGBO+Q1zX0STJfakvL/xYmaRYTl09HeV8S4nS3T050u7t72fTEJ8A==
 
-"@wangeditor/table-module@^0.8.3":
-  version "0.8.3"
-  resolved "https://registry.yarnpkg.com/@wangeditor/table-module/-/table-module-0.8.3.tgz#b0d651313abfe3fc75caa18e0127df7e0c1911a2"
-  integrity sha512-+3H6q+BMg1Brr8i5Fe7GdCMlSl7f3l3GTqxHvhJTHFLTyX2kc0k9zcOAlsQy2mEl4U5+J7cCB3/4w0hywt/XIg==
-
-"@wangeditor/upload-image-module@^0.7.5":
-  version "0.7.5"
-  resolved "https://registry.yarnpkg.com/@wangeditor/upload-image-module/-/upload-image-module-0.7.5.tgz#55dae590297df7249ab2fafb46ce9296094b13a6"
-  integrity sha512-LAG50qBeiHpNEUCuDc5k+kv4aP0Mwk0L8jhDiGKPdI8LrP7egLVsaeYrg4ffLpBfPzujs0If1UNmfbWl2chBDw==
-
-"@wangeditor/video-module@^0.7.3":
-  version "0.7.3"
-  resolved "https://registry.yarnpkg.com/@wangeditor/video-module/-/video-module-0.7.3.tgz#3b942bbdb27157fbd748fa6d65a370702a183dd0"
-  integrity sha512-Ry+L2vbctZ64l+NMf/UoEkP7s45L8k9R10XarKL/apUAE6ZCExFiS5zCWbVXXdfinyP+7qu3oKsgDFL2xfeK2g==
+"@wangeditor/video-module@^0.7.4":
+  version "0.7.4"
+  resolved "https://registry.yarnpkg.com/@wangeditor/video-module/-/video-module-0.7.4.tgz#d7de4140550a1c270e2acef34277aa4c80ced9c4"
+  integrity sha512-BEM43dRc84TcmO8W5oYsGOfCNsKBVR/NgeMYWdsx3UZDJ2/h7oYZdMaxPUZeQWTIV/gO3IxEb5bOMZK6omymqg==
 
 "@webassemblyjs/ast@1.9.0":
   version "1.9.0"
