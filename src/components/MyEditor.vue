@@ -1,186 +1,126 @@
-<script setup>
-// import { h } from 'snabbdom'
-import { computed, onUnmounted, ref } from 'vue'
-// import { IButtonMenu } from '@wangeditor/core'
-// import { Boot } from '@wangeditor/editor'
+<template>
+    <div>
+        <button @click="insertText">insert text</button>
+        <div v-if="isEditorShow" style="border: 1px solid #ccc">
+            <Toolbar
+                :editorId="editorId"
+                :defaultConfig="toolbarConfig"
+                :mode="mode"
+                style="border-bottom: 1px solid #ccc"
+            />
+            <Editor
+                :editorId="editorId"
+                :defaultConfig="editorConfig"
+                :defaultContent="getDefaultContent"
+                :mode="mode"
+                style="height: 500px"
+                @onCreated="handleCreated"
+                @onChange="handleChange"
+                @onDestroyed="handleDestroyed"
+                @onFocus="handleFocus"
+                @onBlur="handleBlur"
+                @customAlert="customAlert"
+                @customPaste="customPaste"
+            />
+        </div>
+        <p v-else>loading</p>
+    </div>
+</template>
+
+<script>
+import { computed, onBeforeUnmount, ref } from 'vue'
 import { Editor, Toolbar, getEditor, removeEditor } from '@wangeditor/editor-for-vue'
 import cloneDeep from 'lodash.clonedeep'
 
+export default {
+  components: { Editor, Toolbar },
+  setup() {
+    const editorId = `w-e-${Math.random().toString().slice(-5)}` //【注意】编辑器 id ，要全局唯一
 
+    // const defaultContent = [
+    //     { type: "paragraph", children: [{ text: "一行文字" }] }
+    // ]
+    // const getDefaultContent = computed(() => cloneDeep(defaultContent)) // 注意，要深拷贝 defaultContent ，否则报错
+    const defaultContent = ref([])
+    const getDefaultContent = computed(() => cloneDeep(defaultContent.value))
 
-// // 测试：多语言
-// i18nChangeLanguage('en')
+    const isEditorShow = ref(false)
 
-// // 测试：注册 renderElem
-// function renderElemFn(elem, children) {
-//     const vnode = h('div', {}, children) // type: 'paragraph' 节点，即渲染为 <p> 标签
-//     return vnode
-// }
-// const renderElemConf = {
-//     type: 'paragraph', // 节点 type ，重要！！！
-//     renderElem: renderElemFn,
-// }
-// Boot.registerRenderElem(renderElemConf)
+    // 模拟 ajax 异步获取内容
+    setTimeout(() => {
+        isEditorShow.value = true
+        defaultContent.value =  [
+            { type: "paragraph", children: [{ text: "ajax 异步获取的内容" }] },
+        ]
+    }, 1000)
 
-// // 测试：注册插件
-// function withMention(editor) {
-//     const { insertText } = editor
-//     const newEditor = editor
+    const toolbarConfig = {}
+    const editorConfig = { placeholder: '请输入内容...' }
 
-//     newEditor.insertText = (t) => {
-//         if (t === '@') {
-//             console.log('要显示下拉列表，位置', newEditor.getSelectionPosition())
-//             return
-//         }
-//         insertText(t)
-//     }
-//     return newEditor
-// }
-// Boot.registerPlugin(withMention)
+    // 组件销毁时，也及时销毁编辑器
+    onBeforeUnmount(() => {
+        const editor = getEditor(editorId)
+        if (editor == null) return
 
-// // 测试：注册 button menu
-// class MyButtonMenu {
-//     constructor() {
-//         this.title = 'menu1',
-//         this.tag = 'button'
-//     }
-//     getValue() { return '' }
-//     isActive() { return false }
-//     isDisabled() { return false }
-//     exec(editor) {
-//         console.log(editor)
-//         alert('menu1 exec')
-//     }
-// }
-// const menuConf = {
-//   key: 'my-menu-1', // menu key ，唯一。注册之后，需通过 toolbarKeys 配置到工具栏
-//   factory() {
-//     return new MyButtonMenu()
-//   },
-// }
-// Boot.registerMenu(menuConf)
+        editor.destroy()
+        removeEditor(editorId)
+    })
 
-
-
-// 编辑器 id ，全局唯一且不变！！！
-const editorId = 'wangeEditor-1'
-
-// 默认内容
-// const defaultContent = []
-// const getDefaultContent = computed(() => cloneDeep(defaultContent))
-const defaultContent = ref([])
-const getDefaultContent = computed(() => cloneDeep(defaultContent.value))
-
-const flag = ref(false)
-
-// 模拟 ajax 异步获取内容
-setTimeout(() => {
-    flag.value = true
-    defaultContent.value =  [
-        {
-            type: "paragraph",
-            children: [{ text: "ajax 异步获取的内容" }],
-        },
-    ]
-}, 1000)
-
-// 编辑器配置
-const editorConfig = {
-    placeholder: '请输入内容...',
-    MENU_CONF: {
-        insertImage: {
-            checkImage(src) {
-                console.log('image src', src)
-                if (src.indexOf("http") !== 0) {
-                    return "图片网址必须以 http/https 开头";
-                }
-                return true;
-            },
-        },
+    // 编辑器回调函数
+    const handleCreated = (editor) => {
+      console.log('created', editor);
     }
-}
+    const handleChange = (editor) => {
+      console.log('change:', editor.children);
+    }
+    const handleDestroyed = (editor) => {
+      console.log('destroyed', editor)
+    }
+    const handleFocus = (editor) => {
+        console.log('focus', editor)
+    }
+    const handleBlur = (editor) => {
+        console.log('blur', editor)
+    }
+    const customAlert = (info, type) => {
+        alert(`【自定义提示】${type} - ${info}`)
+    }
+    const customPaste = (editor, event, callback) => {
+        console.log('ClipboardEvent 粘贴事件对象', event)
 
-// 工具栏配置
-const toolbarConfig = {
-    // toolbarKeys: ['headerSelect', 'bold', 'my-menu-1'],
-    // excludeKeys: [],
-}
+        // 自定义插入内容
+        editor.insertText('xxx')
 
-// 编辑器回调函数
-const handleCreated = (editor) => {
-    console.log("created", editor);
-    // window.editor = editor // 临时测试使用，用完删除
-}
-const handleChange = (editor) => {
-    console.log("change:", editor.children);
-}
-const handleDestroyed = (editor) => {
-    console.log('destroyed', editor)
-}
-const handleFocus = (editor) => {
-    console.log('focus', editor)
-}
-const handleBlur = (editor) => {
-    console.log('blur', editor)
-}
-const customAlert = (info, type) => {
-    alert(`【自定义提示】${type} - ${info}`)
-}
-const customPaste = (editor, event, callback) => {
-    console.log('ClipboardEvent 粘贴事件对象', event)
+        // 返回值（注意，vue 事件的返回值，不能用 return）
+        callback(false) // 返回 false ，阻止默认粘贴行为
+        // callback(true) // 返回 true ，继续默认的粘贴行为
+    }
 
-    // 自定义插入内容
-    editor.insertText('xxx')
+    const insertText = () => {
+        const editor = getEditor(editorId)
+        if (editor == null) return
 
-    // 返回值（注意，vue 事件的返回值，不能用 return）
-    callback(false) // 返回 false ，阻止默认粘贴行为
-    // callback(true) // 返回 true ，继续默认的粘贴行为
-}
+        editor.insertText('hello world')
+    }
 
-// 及时销毁编辑器
-onUnmounted(() => {
-    const editor = getEditor(editorId)
-    if (editor == null) return
-
-    // 销毁，并移除 editor
-    editor.destroy()
-    removeEditor(editorId)
-})
-
-const getHtml = () => {
-    const editor = getEditor(editorId)
-    if (editor == null) return
-
-    console.log(editor.getHtml())
+    return {
+      editorId,
+      mode: 'default',
+      getDefaultContent,
+      toolbarConfig,
+      editorConfig,
+      isEditorShow,
+      handleCreated,
+      handleChange,
+      handleDestroyed,
+      handleFocus,
+      handleBlur,
+      customAlert,
+      customPaste,
+      insertText
+    };
+  }
 }
 </script>
-
-<template>
-    <div>
-        <button @click="getHtml">获取 html</button>
-    </div>
-    <div style="border: 1px solid #ccc" v-if="flag">
-        <!-- 工具栏 -->
-        <Toolbar
-            :editorId="editorId"
-            :defaultConfig="toolbarConfig"
-            style="border-bottom: 1px solid #ccc"
-        />
-        <!-- 编辑器 -->
-        <Editor
-            :editorId="editorId"
-            :defaultConfig="editorConfig"
-            :defaultContent="getDefaultContent"
-            @onChange="handleChange"
-            @onCreated="handleCreated"
-            @onDestroyed="handleDestroyed"
-            @onFocus="handleFocus"
-            @onBlur="handleBlur"
-            @customAlert="customAlert"
-            @customPaste="customPaste"
-            style="height: 500px"
-        />
-    </div>
-</template>
 
 <style src="@wangeditor/editor/dist/css/style.css"></style>
