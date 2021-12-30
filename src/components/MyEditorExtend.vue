@@ -1,8 +1,8 @@
 <script setup>
 // import { h } from 'snabbdom'
-import { computed, onUnmounted } from 'vue'
+import { computed, onBeforeUnmount } from 'vue'
 // import { IButtonMenu } from '@wangeditor/core'
-// import { Boot } from '@wangeditor/editor'
+import { Boot } from '@wangeditor/editor'
 import { Editor, Toolbar, getEditor, removeEditor } from '@wangeditor/editor-for-vue'
 import cloneDeep from 'lodash.clonedeep'
 
@@ -53,32 +53,32 @@ import cloneDeep from 'lodash.clonedeep'
 // }
 // Boot.registerPlugin(withCtrlEnter)
 
-// // 测试：注册 button menu
-// class MyButtonMenu {
-//     constructor() {
-//         this.title = 'menu1',
-//         this.tag = 'button'
-//     }
-//     getValue() { return '' }
-//     isActive() { return false }
-//     isDisabled() { return false }
-//     exec(editor) {
-//         console.log(editor)
-//         alert('menu1 exec')
-//     }
-// }
-// const menuConf = {
-//   key: 'my-menu-1', // menu key ，唯一。注册之后，需通过 toolbarKeys 配置到工具栏
-//   factory() {
-//     return new MyButtonMenu()
-//   },
-// }
-// Boot.registerMenu(menuConf)
-
+// 测试：注册 button menu
+class MyButtonMenu {
+    constructor() {
+        this.title = 'menu1',
+        this.tag = 'button'
+    }
+    getValue() { return '' }
+    isActive() { return false }
+    isDisabled() { return false }
+    exec(editor) {
+        console.log(editor)
+        alert('menu1 exec')
+    }
+}
+const menuConf = {
+  key: 'my-menu-1', // menu key ，唯一。注册之后，需通过 toolbarKeys 配置到工具栏
+  factory() {
+    return new MyButtonMenu()
+  },
+}
+Boot.registerMenu(menuConf)
+console.log(1111111111)
 
 
 // 编辑器 id ，全局唯一且不变！！！
-const editorId = 'wangeEditor-1'
+const editorId = 'wangEditor-1'
 
 // 默认内容
 const defaultContent = []
@@ -119,10 +119,10 @@ const editorConfig = {
 const toolbarConfig = {
     // toolbarKeys: ['headerSelect', 'bold', 'my-menu-1'],
     // excludeKeys: [],
-    // insertKeys: {
-    //     index: 0,
-    //     keys: 'my-menu-1'
-    // }
+    insertKeys: {
+        index: 0,
+        keys: 'my-menu-1'
+    }
 }
 
 // 编辑器回调函数
@@ -157,7 +157,7 @@ const customPaste = (editor, event, callback) => {
 }
 
 // 及时销毁编辑器
-onUnmounted(() => {
+onBeforeUnmount(() => {
     const editor = getEditor(editorId)
     if (editor == null) return
 

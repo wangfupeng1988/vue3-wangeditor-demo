@@ -8,9 +8,9 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@wangeditor/core": "^0.13.0",
-    "@wangeditor/editor": "^0.13.3",
-    "@wangeditor/editor-for-vue": "^5.1.8-4",
+    "@wangeditor/core": "^0.13.1",
+    "@wangeditor/editor": "^0.13.4",
+    "@wangeditor/editor-for-vue": "^5.1.8-5",
     "@wangeditor/plugin-ctrl-enter": "^1.0.2",
     "core-js": "^3.6.5",
     "lodash.clonedeep": "^4.5.0",
