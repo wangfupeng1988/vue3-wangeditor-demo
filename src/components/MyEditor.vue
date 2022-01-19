@@ -22,6 +22,7 @@
                 @customAlert="customAlert"
                 @customPaste="customPaste"
             />
+            <!-- 初始化内容，defaultContent 或 defaultHtml ，二选一 -->
         </div>
         <p v-else>loading</p>
     </div>
@@ -44,14 +45,17 @@ export default {
     const defaultContent = ref([])
     const getDefaultContent = computed(() => cloneDeep(defaultContent.value))
 
+    // const defaultHtml = ref('')
+
     const isEditorShow = ref(false)
 
     // 模拟 ajax 异步获取内容
     setTimeout(() => {
-        isEditorShow.value = true
         defaultContent.value =  [
             { type: "paragraph", children: [{ text: "ajax 异步获取的内容" }] },
         ]
+        // defaultHtml.value = '<p>hello&nbsp;<strong>world</strong>.</p>'
+        isEditorShow.value = true
     }, 1000)
 
     const toolbarConfig = {}
@@ -107,6 +111,7 @@ export default {
       editorId,
       mode: 'default',
       getDefaultContent,
+      // defaultHtml,
       toolbarConfig,
       editorConfig,
       isEditorShow,
