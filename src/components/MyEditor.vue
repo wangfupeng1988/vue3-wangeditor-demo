@@ -1,6 +1,7 @@
 <template>
     <div>
         <button @click="insertText">insert text</button>
+        <button @click="printHtml">print html</button>
         <div v-if="isEditorShow" style="border: 1px solid #ccc">
             <Toolbar
                 :editorId="editorId"
@@ -11,7 +12,7 @@
             <Editor
                 :editorId="editorId"
                 :defaultConfig="editorConfig"
-                :defaultContent="getDefaultContent"
+                :defaultContent="defaultContent"
                 :mode="mode"
                 style="height: 500px"
                 @onCreated="handleCreated"
@@ -22,16 +23,15 @@
                 @customAlert="customAlert"
                 @customPaste="customPaste"
             />
-            <!-- 初始化内容，defaultContent 或 defaultHtml ，二选一 -->
+            <!-- 初始化内容， defaultContent 或 defaultHtml ，二选一 -->
         </div>
         <p v-else>loading</p>
     </div>
 </template>
 
 <script>
-import { computed, onBeforeUnmount, ref } from 'vue'
+import { onBeforeUnmount, ref } from 'vue'
 import { Editor, Toolbar, getEditor, removeEditor } from '@wangeditor/editor-for-vue'
-import cloneDeep from 'lodash.clonedeep'
 
 export default {
   components: { Editor, Toolbar },
@@ -41,11 +41,10 @@ export default {
     // const defaultContent = [
     //     { type: "paragraph", children: [{ text: "一行文字" }] }
     // ]
-    // const getDefaultContent = computed(() => cloneDeep(defaultContent)) // 注意，要深拷贝 defaultContent ，否则报错
     const defaultContent = ref([])
-    const getDefaultContent = computed(() => cloneDeep(defaultContent.value))
 
-    // const defaultHtml = ref('')
+    // const defaultHtml = '<p>hello</p>'
+    // const defaultHtml = ref('<p>hello</p>')
 
     const isEditorShow = ref(false)
 
@@ -55,6 +54,7 @@ export default {
             { type: "paragraph", children: [{ text: "ajax 异步获取的内容" }] },
         ]
         // defaultHtml.value = '<p>hello&nbsp;<strong>world</strong>.</p>'
+
         isEditorShow.value = true
     }, 1000)
 
@@ -107,11 +107,17 @@ export default {
         editor.insertText('hello world')
     }
 
+    const printHtml = () => {
+        const editor = getEditor(editorId)
+        if (editor == null) return
+        console.log(editor.getHtml())
+    }
+
     return {
       editorId,
       mode: 'default',
-      getDefaultContent,
       // defaultHtml,
+      defaultContent,
       toolbarConfig,
       editorConfig,
       isEditorShow,
@@ -122,7 +128,8 @@ export default {
       handleBlur,
       customAlert,
       customPaste,
-      insertText
+      insertText,
+      printHtml,
     };
   }
 }

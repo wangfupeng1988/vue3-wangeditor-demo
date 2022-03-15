@@ -1,10 +1,9 @@
 <script setup>
 // import { h } from 'snabbdom'
-import { computed, onBeforeUnmount } from 'vue'
+import { onBeforeUnmount } from 'vue'
 // import { IButtonMenu } from '@wangeditor/core'
 import { Boot } from '@wangeditor/editor'
 import { Editor, Toolbar, getEditor, removeEditor } from '@wangeditor/editor-for-vue'
-import cloneDeep from 'lodash.clonedeep'
 
 // 测试：第三方插件
 // import withCtrlEnter from '@wangeditor/plugin-ctrl-enter'
@@ -82,9 +81,7 @@ const editorId = 'wangEditor-1'
 
 // 默认内容
 const defaultContent = []
-const getDefaultContent = computed(() => cloneDeep(defaultContent))
 // const defaultContent = ref([])
-// const getDefaultContent = computed(() => cloneDeep(defaultContent.value))
 
 // const flag = ref(false)
 
@@ -189,7 +186,7 @@ const getHtml = () => {
         <Editor
             :editorId="editorId"
             :defaultConfig="editorConfig"
-            :defaultContent="getDefaultContent"
+            :defaultContent="defaultContent"
             @onChange="handleChange"
             @onCreated="handleCreated"
             @onDestroyed="handleDestroyed"
