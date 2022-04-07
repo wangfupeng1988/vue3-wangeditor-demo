@@ -5,19 +5,19 @@
   </div>
   <hr>
 
-  <my-editor v-if="show"></my-editor>
-  <!-- <my-editor-extend v-if="show"></my-editor-extend> -->
+  <BasicEditor v-if="show"></BasicEditor>
+  <!-- <ExtendedEditor v-if="show"></ExtendedEditor> -->
 </template>
 
 <script>
-import MyEditor from './components/MyEditor.vue'
-// import MyEditorExtend from './components/MyEditorExtend.vue'
+import BasicEditor from './components/BasicEditor.vue'
+// import ExtendedEditor from './components/ExtendedEditor.vue'
 
 export default {
   name: 'App',
   components: {
-    MyEditor,
-    // MyEditorExtend,
+    BasicEditor,
+    // ExtendedEditor,
   },
   data() {
     return {
