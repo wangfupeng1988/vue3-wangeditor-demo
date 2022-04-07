@@ -1,9 +1,9 @@
 <script setup>
 // import { h } from 'snabbdom'
-import { onBeforeUnmount } from 'vue'
+import { onBeforeUnmount, ref, shallowRef } from 'vue'
 // import { IButtonMenu } from '@wangeditor/core'
 import { Boot } from '@wangeditor/editor'
-import { Editor, Toolbar, getEditor, removeEditor } from '@wangeditor/editor-for-vue'
+import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
 
 // 测试：第三方插件
 // import withCtrlEnter from '@wangeditor/plugin-ctrl-enter'
@@ -76,25 +76,11 @@ Boot.registerMenu(menuConf)
 console.log(1111111111)
 
 
-// 编辑器 id ，全局唯一且不变！！！
-const editorId = 'wangEditor-1'
+// 编辑器实例，必须用 shallowRef ，重要！
+const editorRef = shallowRef()
 
-// 默认内容
-const defaultContent = []
-// const defaultContent = ref([])
-
-// const flag = ref(false)
-
-// // 模拟 ajax 异步获取内容
-// setTimeout(() => {
-//     flag.value = true
-//     defaultContent.value =  [
-//         {
-//             type: "paragraph",
-//             children: [{ text: "ajax 异步获取的内容" }],
-//         },
-//     ]
-// }, 1000)
+// 内容 HTML
+const valueHtml = ref('<p>hello&nbsp;world</p>')
 
 // 编辑器配置
 const editorConfig = {
@@ -125,6 +111,9 @@ const toolbarConfig = {
 // 编辑器回调函数
 const handleCreated = (editor) => {
     console.log("created", editor);
+
+    editorRef.value = editor // 记录 editor 实例，重要！
+
     // window.editor = editor // 临时测试使用，用完删除
 }
 const handleChange = (editor) => {
@@ -155,16 +144,15 @@ const customPaste = (editor, event, callback) => {
 
 // 及时销毁编辑器
 onBeforeUnmount(() => {
-    const editor = getEditor(editorId)
+    const editor = editorRef.value
     if (editor == null) return
 
     // 销毁，并移除 editor
     editor.destroy()
-    removeEditor(editorId)
 })
 
 const getHtml = () => {
-    const editor = getEditor(editorId)
+    const editor = editorRef.value
     if (editor == null) return
 
     console.log(editor.getHtml())
@@ -178,15 +166,14 @@ const getHtml = () => {
     <div style="border: 1px solid #ccc">
         <!-- 工具栏 -->
         <Toolbar
-            :editorId="editorId"
+            :editor="editorRef"
             :defaultConfig="toolbarConfig"
             style="border-bottom: 1px solid #ccc"
         />
         <!-- 编辑器 -->
         <Editor
-            :editorId="editorId"
+            v-model="valueHtml"
             :defaultConfig="editorConfig"
-            :defaultContent="defaultContent"
             @onChange="handleChange"
             @onCreated="handleCreated"
             @onDestroyed="handleDestroyed"

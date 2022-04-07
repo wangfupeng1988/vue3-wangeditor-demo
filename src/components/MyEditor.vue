@@ -1,20 +1,21 @@
 <template>
     <div>
-        <button @click="insertText">insert text</button>
-        <button @click="printHtml">print html</button>
-        <div v-if="isEditorShow" style="border: 1px solid #ccc">
+        <div>
+            <button @click="insertText">insert text</button>
+            <button @click="printHtml">print html</button>
+        </div>
+        <div style="border: 1px solid #ccc; margin-top: 10px;">
             <Toolbar
-                :editorId="editorId"
+                :editor="editorRef"
                 :defaultConfig="toolbarConfig"
                 :mode="mode"
                 style="border-bottom: 1px solid #ccc"
             />
             <Editor
-                :editorId="editorId"
                 :defaultConfig="editorConfig"
-                :defaultContent="defaultContent"
                 :mode="mode"
-                style="height: 500px"
+                v-model="valueHtml"
+                style="height: 400px"
                 @onCreated="handleCreated"
                 @onChange="handleChange"
                 @onDestroyed="handleDestroyed"
@@ -23,59 +24,51 @@
                 @customAlert="customAlert"
                 @customPaste="customPaste"
             />
-            <!-- 初始化内容， defaultContent 或 defaultHtml ，二选一 -->
         </div>
-        <p v-else>loading</p>
+        <div style="margin-top: 10px;">
+            <textarea v-model="valueHtml" readonly style="width: 100%; height: 200px; outline: none;"></textarea>
+        </div>
     </div>
 </template>
 
 <script>
-import { onBeforeUnmount, ref } from 'vue'
-import { Editor, Toolbar, getEditor, removeEditor } from '@wangeditor/editor-for-vue'
+import { onBeforeUnmount, ref, shallowRef, onMounted } from 'vue'
+import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
 
 export default {
   components: { Editor, Toolbar },
   setup() {
-    const editorId = `w-e-${Math.random().toString().slice(-5)}` //【注意】编辑器 id ，要全局唯一
+    // 编辑器实例，必须用 shallowRef，重要！
+    const editorRef = shallowRef()
 
-    // const defaultContent = [
-    //     { type: "paragraph", children: [{ text: "一行文字" }] }
-    // ]
-    const defaultContent = ref([])
-
-    // const defaultHtml = '<p>hello</p>'
-    // const defaultHtml = ref('<p>hello</p>')
-
-    const isEditorShow = ref(false)
+    // 内容 HTML
+    const valueHtml = ref('<p>hello</p>')
 
     // 模拟 ajax 异步获取内容
-    setTimeout(() => {
-        defaultContent.value =  [
-            { type: "paragraph", children: [{ text: "ajax 异步获取的内容" }] },
-        ]
-        // defaultHtml.value = '<p>hello&nbsp;<strong>world</strong>.</p>'
-
-        isEditorShow.value = true
-    }, 1000)
+    onMounted(() => {
+        setTimeout(() => {
+            valueHtml.value = '<p>模拟 Ajax 异步设置内容</p>'
+        }, 1500)
+    })
 
     const toolbarConfig = {}
     const editorConfig = { placeholder: '请输入内容...' }
 
-    // 组件销毁时，也及时销毁编辑器
+    // 组件销毁时，也及时销毁编辑器，重要！
     onBeforeUnmount(() => {
-        const editor = getEditor(editorId)
+        const editor = editorRef.value
         if (editor == null) return
 
         editor.destroy()
-        removeEditor(editorId)
     })
 
     // 编辑器回调函数
     const handleCreated = (editor) => {
       console.log('created', editor);
+      editorRef.value = editor // 记录 editor 实例，重要！
     }
     const handleChange = (editor) => {
-      console.log('change:', editor.children);
+      console.log('change:', editor.getHtml());
     }
     const handleDestroyed = (editor) => {
       console.log('destroyed', editor)
@@ -101,26 +94,24 @@ export default {
     }
 
     const insertText = () => {
-        const editor = getEditor(editorId)
+        const editor = editorRef.value
         if (editor == null) return
 
         editor.insertText('hello world')
     }
 
     const printHtml = () => {
-        const editor = getEditor(editorId)
+        const editor = editorRef.value
         if (editor == null) return
         console.log(editor.getHtml())
     }
 
     return {
-      editorId,
+      editorRef,
       mode: 'default',
-      // defaultHtml,
-      defaultContent,
+      valueHtml,
       toolbarConfig,
       editorConfig,
-      isEditorShow,
       handleCreated,
       handleChange,
       handleDestroyed,

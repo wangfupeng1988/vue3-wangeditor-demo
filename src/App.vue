@@ -1,8 +1,10 @@
 <template>
-  <p>
+  <div>
     wangEditor for vue3
     <button @click="toggle">显示/隐藏</button>
-  </p>
+  </div>
+  <hr>
+
   <my-editor v-if="show"></my-editor>
   <!-- <my-editor-extend v-if="show"></my-editor-extend> -->
 </template>
