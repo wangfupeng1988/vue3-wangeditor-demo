@@ -3,6 +3,7 @@
         <div>
             <button @click="insertText">insert text</button>
             <button @click="printHtml">print html</button>
+            <button @click="disable">disable</button>
         </div>
         <div style="border: 1px solid #ccc; margin-top: 10px;">
             <Toolbar
@@ -97,7 +98,6 @@ export default {
     const insertText = () => {
         const editor = editorRef.value
         if (editor == null) return
-
         editor.insertText('hello world')
     }
 
@@ -105,6 +105,12 @@ export default {
         const editor = editorRef.value
         if (editor == null) return
         console.log(editor.getHtml())
+    }
+
+    const disable = () => {
+        const editor = editorRef.value
+        if (editor == null) return
+        editor.disable()
     }
 
     return {
@@ -122,6 +128,7 @@ export default {
       customPaste,
       insertText,
       printHtml,
+      disable,
     };
   }
 }
